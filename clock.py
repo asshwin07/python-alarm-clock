@@ -2,11 +2,13 @@
 from tkinter import *
 import datetime
 import time
+import tkinter
 from token import OP
 import winsound
 from threading import *
 from anyio import current_time
 from playsound import playsound
+import os
 
 root = Tk()
 
@@ -15,6 +17,12 @@ root.geometry("400x200")
 def Threading():
     t1=Thread(target=alarm)
     t1.start()
+
+def Threading2():
+    t2 = Thread(target=stop)
+    t2.start()
+
+
 
 def alarm():
     while True:
@@ -28,6 +36,7 @@ def alarm():
 
 Label(root, text="Alarm Clock", font=("Helvetica 20 bold"), fg="red").pack(pady=10)
 Label(root,text="Set Alarm", font=("Helvetica 20 bold")).pack()
+#Label(root,text="Stop", font=("Helvetica 20 bold")).pack(pady=20)
 
 frame = Frame(root)
 frame.pack()
@@ -69,7 +78,15 @@ seconds = ('00', '01', '02', '03', '04', '05', '06', '07',
 secs = OptionMenu(frame, second, *seconds)
 secs.pack(side=LEFT)
 
-Button(root,text="Set Alarm",font=("Helvetica 15"),command=Threading).pack(pady=20)
+b1 = tkinter.Button(root,text="Set Alarm",font=("Helvetica 15"),command=Threading)
+b1.pack(side = tkinter.BOTTOM)
+
+b2 = tkinter.Button(root,text="Stop",font=("Helvetica 15"),command=Threading2)
+b2.pack(side = tkinter.TOP)
+def stop():
+    os._exit(os.X_OK)
+
+
 
 root.mainloop()
 
